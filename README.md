@@ -49,8 +49,7 @@ gcc -o check_clones check_clones.c
 
 ## Limitations
 
-Note that if the sorted report mentions, for example, 2 clone IDs for a given file but the 'clones:' number is bigger than that, it means that there are other clones in another directory that wasn't scanned by 'find', so beware!
-
+* Note that if the sorted report mentions, for example, 2 clone IDs for a given file but the 'clones:' number is bigger than that, it means that there are other clones in another directory that wasn't scanned by 'find', so beware!
 * Although the tool is safe as it does not execute changes in the filesystem, you use it at your own risk, results can be misleading
 * I haven't tested it thoroughly, not sure if it works within macOS package files.  
 
