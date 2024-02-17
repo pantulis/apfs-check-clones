@@ -19,7 +19,9 @@ If the file has a clone reference > 1, then some useful information about the fi
 Clone ID:  21BC2DE ./cloned3.c: clones: 2, size(logical): 6.9 KiB, size(physical): 8 KiB, size (private): 0
 ```
 
-The key info is the 'Clone ID', which is shared across cloned files and being the first thing in the line means it can be sorted to group the files with the same Clone IDs. The name and size is also displayed to help a human identify which are the important files. Then it is just a matter of running a command line script:
+The key info is the 'Clone ID', which is shared across cloned files and being the first thing in the line means it can be sorted to group the files with the same Clone IDs. The name and size is also displayed to help a human identify which are the important files.
+
+For a full directory scan, some shell scripting can be used:
 
 ```.sh
 find $1 -exec ./check_clones \{\} \; 2>/dev/null > clone_report.txt
