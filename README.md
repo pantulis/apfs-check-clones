@@ -30,6 +30,9 @@ find $1 -exec ./check_clones \{\} \; 2>/dev/null > clone_report.txt
 sort clone_report.txt
 ```
 
+A handy sample script that does this is in `./clone_check.sh`.  Warning: running this on `$HOME` can take more than an hour depending on the numbers of files you have.
+
+
 ```
 Clone ID:  21BC2DE ./cloned2.c: clones: 2, size(logical): 6.9 KiB, size(physical): 8 KiB, size (private): 0
 Clone ID:  21BC2DE ./cloned3.c: clones: 2, size(logical): 6.9 KiB, size(physical): 8 KiB, size (private): 0
@@ -38,9 +41,8 @@ Clone ID:  9BEF8 ./test/LetItBe_2#02 copy.aif: clones: 3, size(logical): 17.6 Mi
 Clone ID:  9BEF8 ./test/LetItBe_2#02.aif: clones: 3, size(logical): 17.6 MiB, size(physical): 17.6 MiB, size (private): 0
 ```
 
-It is recommended to add 'check_clones' to the Full Disk Access section in macOS Security Preferences panel, a handy sample script that does this is in `./clone_check.sh`
 
-Warning: running this on `$HOME` can take more than an hour depending on the numbers of files you have.
+
 
 ## Compilation (tested in Sonoma 14.2.1 on ARM)
 
@@ -61,5 +63,6 @@ gcc -o check_clones check_clones.c
 * Note that if the sorted report mentions that a given file has 2 clone IDs the 'clones:' number is bigger than that, it means that there are other clones in another directory that wasn't scanned by 'find', so beware!
 * It has been tested on *exact* cloned files.  If a clone was changed, behaviour has not been tested.
 * Although the tool is safe as it does not execute changes in the filesystem, use it at your own risk, results can be misleading.
-* I haven't tested it thoroughly, not sure if it works within macOS package files.  
+* It is recommended to add 'check_clones' to the Full Disk Access section in macOS Security Preferences panel otherwise 'tccd' will start checking permissions. 
+* I haven't tested it thoroughly, it seems to work within macOS package files.  
 
