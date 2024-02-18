@@ -78,7 +78,7 @@ int main(int args_count, char **args) {
   result = getattrlist(path, &attrList, &myStat, sizeof(myStat), FSOPT_ATTR_CMN_EXTENDED);
   
   if (result == -1) {
-    fprintf(stdout, "Can't stat getattrlist(%s), error: %s \n", path, strerror(errno));
+    fprintf(stderr, "Can't stat getattrlist(%s), error: %s \n", path, strerror(errno));
     exit(EXIT_FAILURE);
   }
 
@@ -87,7 +87,8 @@ int main(int args_count, char **args) {
    u_int32_t clone_refcnt = myStat.clone_refcnt;
    u_int64_t clone_id = myStat.clone_id;
    off_t private_size = myStat.private_size;
-   if (clone_refcnt >1) {
+   
+   if (clone_refcnt > 1) {
      // 60 bytes memory leak here, let's not care
      printf("Clone ID:  %"PRIX64" ""%s"": clones: %u, size(logical): %s, size(physical): %s, size (private): %s\n",
 	    clone_id, path, clone_refcnt, calculate_size(logical_size), calculate_size(physical_size), calculate_size(private_size));
@@ -97,7 +98,7 @@ int main(int args_count, char **args) {
 }
 
 void printUsage(char* executable){
-  fprintf(stderr, "Usage: %s file\n", executable);
+  fprintf(stdout, "Usage: %s file\n", executable);
   exit(EXIT_FAILURE);
 }
 
@@ -138,9 +139,8 @@ struct stat check_file(char *filename, bool is_forced_mode) {
 // size calculation function from Jonathan Lefler
 
 #define DIM(x) (sizeof(x)/sizeof(*(x)))
-static const char     *sizes[]   = { "EiB", "PiB", "TiB", "GiB", "MiB", "KiB", "B" };
-static const uint64_t  exbibytes = 1024ULL * 1024ULL * 1024ULL *
-                                   1024ULL * 1024ULL * 1024ULL;
+static const char *sizes[]   = { "EiB", "PiB", "TiB", "GiB", "MiB", "KiB", "B" };
+static const uint64_t exbibytes = 1024ULL * 1024ULL * 1024ULL * 1024ULL * 1024ULL * 1024ULL;
 
 char *calculate_size(off_t size) {   
     char     *result = (char *) malloc(sizeof(char) * 20);
