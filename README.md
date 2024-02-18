@@ -23,15 +23,15 @@ The key info here is the 'Clone ID', which is shared across cloned files and bei
 means it can be sorted to group the files with the same Clone IDs. The name and size is also displayed to help
 a human identify which are the important files.
 
-For a full directory scan, some shell scripting can be used:
+A full directory scan is left as a task for 'find' or a similar tool. Warning: running this on `$HOME` can take
+more than an hour depending on the numbers of files you have.
 
 ```.sh
-find $1 -exec ./check_clones \{\} \; 2>/dev/null > clone_report.txt
+find $HOME -exec ./check_clones \{\} \; 2>/dev/null > clone_report.txt 
 sort clone_report.txt
 ```
 
-A handy sample script that does this is in `./clone_check.sh`.  Warning: running this on `$HOME` can take more than an hour depending on the numbers of files you have.
-
+A handy sample script that does this is in `./clone_check.sh`.  
 
 ```
 Clone ID:  21BC2DE ./cloned2.c: clones: 2, size(logical): 6.9 KiB, size(physical): 8 KiB, size (private): 0
@@ -40,9 +40,6 @@ Clone ID:  9BEF8 ./test/LetItBe_2#02 copy 2.aif: clones: 3, size(logical): 17.6 
 Clone ID:  9BEF8 ./test/LetItBe_2#02 copy.aif: clones: 3, size(logical): 17.6 MiB, size(physical): 17.6 MiB, size (private): 0
 Clone ID:  9BEF8 ./test/LetItBe_2#02.aif: clones: 3, size(logical): 17.6 MiB, size(physical): 17.6 MiB, size (private): 0
 ```
-
-
-
 
 ## Compilation (tested in Sonoma 14.2.1 on ARM)
 
